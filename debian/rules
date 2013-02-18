@@ -1,0 +1,37 @@
+#!/usr/bin/make -f
+%:
+ifneq ($(shell dh -l | grep -xF translations),)
+	dh $@ --with python2,translations
+else
+	dh $@ --with python2
+endif
+
+override_dh_auto_install:
+	dh_auto_install -- --install-scripts=/opt/extras.ubuntu.com/uberwriter/bin  --install-data=/opt/extras.ubuntu.com/uberwriter --install-lib=/opt/extras.ubuntu.com/uberwriter
+
+override_dh_python2:
+	dh_python2 /opt/extras.ubuntu.com/uberwriter
+
+override_dh_install:
+	dh_install
+	
+	mkdir -p debian/uberwriter/opt/extras.ubuntu.com/uberwriter/bin
+	if [ -x debian/uberwriter/opt/extras.ubuntu.com/uberwriter/uberwriter/uberwriter ]; then mv debian/uberwriter/opt/extras.ubuntu.com/uberwriter/uberwriter/uberwriter debian/uberwriter/opt/extras.ubuntu.com/uberwriter/bin; fi
+	if [ -f debian/uberwriter/opt/extras.ubuntu.com/uberwriter/share/applications/uberwriter.desktop ]; then \
+		mkdir -p debian/uberwriter/usr/share/applications; \
+		mv debian/uberwriter/opt/extras.ubuntu.com/uberwriter/share/applications/uberwriter.desktop debian/uberwriter/usr/share/applications/extras-uberwriter.desktop; \
+		rmdir --ignore-fail-on-non-empty debian/uberwriter/opt/extras.ubuntu.com/uberwriter/share/applications; \
+		sed -i 's|Exec=[^ ]*|Exec=/opt/extras.ubuntu.com/uberwriter/bin/uberwriter|' debian/uberwriter/usr/share/applications/extras-uberwriter.desktop; \
+		sed -i 's|Icon=/usr/|Icon=/opt/extras.ubuntu.com/uberwriter/|' debian/uberwriter/usr/share/applications/extras-uberwriter.desktop; \
+	fi
+	# grep -RlZ 'import gettext' debian/uberwriter/* | xargs -0 -r sed -i 's|\(import\) gettext$$|\1 locale|'
+	# grep -RlZ 'from gettext import gettext as _' debian/uberwriter/* | xargs -0 -r sed -i 's|from gettext \(import gettext as _\)|from locale \1|'
+	# grep -RlZ "gettext.textdomain('uberwriter')" debian/uberwriter/* | xargs -0 -r sed -i "s|gettext\(\.textdomain('uberwriter')\)|locale\.bindtextdomain('uberwriter', '/opt/extras.ubuntu.com/uberwriter/share/locale')\nlocale\1|"
+
+	sed -i "s|__uberwriter_data_directory__ =.*|__uberwriter_data_directory__ = '/opt/extras.ubuntu.com/uberwriter/share/uberwriter/'|" debian/uberwriter/opt/extras.ubuntu.com/uberwriter/uberwriter*/uberwriterconfig.py
+	sed -i 's|        sys.path.insert(0, opt_path)|\0\n    os.putenv("XDG_DATA_DIRS", "%s:%s" % ("/opt/extras.ubuntu.com/uberwriter/share/", os.getenv("XDG_DATA_DIRS", "")))|' debian/uberwriter/opt/extras.ubuntu.com/uberwriter/bin/uberwriter
+	if [ -d debian/uberwriter/opt/extras.ubuntu.com/uberwriter/share/glib-2.0/schemas ]; then glib-compile-schemas debian/uberwriter/opt/extras.ubuntu.com/uberwriter/share/glib-2.0/schemas; fi
+	
+	cp uberwriter_lib/pylocales/locales.db debian/uberwriter/opt/extras.ubuntu.com/uberwriter/uberwriter_lib/pylocales/locales.db
+
+
