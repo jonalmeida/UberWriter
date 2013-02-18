@@ -34,9 +34,9 @@ import cairo
 
 import re
 
-from uberwriter import MarkupBuffer
+from uberwriter.MarkupBuffer import MarkupBuffer
 #from MarkupBuffer import MarkupBuffer
-from uberwriter import FormatShortcuts
+from uberwriter.FormatShortcuts import FormatShortcuts
 #from FormatShortcuts import FormatShortcuts
 #from uberwriter import TextEditor
 from uberwriter.UberwriterTextEditor import TextEditor
