@@ -966,7 +966,7 @@ class UberwriterWindow(Window):
         css_data = css.read()
         css.close()
 
-        self.style_provider.load_from_data(css_data)
+        self.style_provider.load_from_data(css_data.encode("utf-8"))
 
         Gtk.StyleContext.add_provider_for_screen(
             Gdk.Screen.get_default(), self.style_provider,     

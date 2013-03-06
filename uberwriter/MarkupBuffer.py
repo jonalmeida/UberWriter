@@ -137,8 +137,9 @@ class MarkupBuffer():
             context_end.forward_lines(2)
             context_offset = context_start.get_offset()
 
-        text = buf.get_slice(context_start, context_end, False).decode("utf-8")
-        text = unicode(text)
+        text = buf.get_slice(context_start, context_end, False).encode("utf-8")
+        #text = unicode(text)
+        text = text.decode("utf-8")
 
         self.TextBuffer.remove_tag(self.italic, context_start, context_end)
 
