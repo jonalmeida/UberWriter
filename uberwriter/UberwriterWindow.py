@@ -166,8 +166,9 @@ class UberwriterWindow(Window):
         self.char_count.set_text(str(self.TextBuffer.get_char_count() - 
                 (2 * self.fflines)))
 
-        text = self.get_text().decode("utf-8")
-        text = unicode(text)
+        text = self.get_text().encode("utf-8")
+        #text = unicode(text)
+        text = text.decode("utf-8")
         words = re.split(self.WORDCOUNT, text)
         length = len(words)
         # Last word a "space"
