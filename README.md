@@ -8,4 +8,4 @@ Initial build was with the help of Wolf Vollprecht (UberWriter creator).
 
 Instructions:
 - python3 bin/uberwriter
-
+ 
