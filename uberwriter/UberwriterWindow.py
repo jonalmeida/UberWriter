@@ -546,7 +546,7 @@ class UberwriterWindow(Window):
                     None, 
                     _("You can not export to PDF.")
                 )
-                dialog.format_secondary_markup(_("Please install <a href=\"apt:texlive\">texlive</a> from the software center."))
+                dialog.format_secondary_markup(_("Please install texlive from the software center."))
                 response = dialog.run()
                 return
             else:

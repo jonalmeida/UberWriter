@@ -11,4 +11,6 @@ Instructions:
  
 Requirements (SEVERELY INCOMPLETE):
 - via apt-get:
-	`sudo apt-get install python3-gi python3-gi-cairo pandoc`
+	`
+	sudo apt-get install python3-gi python3-gi-cairo pandoc texlive
+	`
