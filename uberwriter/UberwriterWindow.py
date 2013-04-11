@@ -707,9 +707,9 @@ class UberwriterWindow(Window):
             # Dark Mode is on
             # Hack for fucking unico-shit
             if Gtk.get_minor_version() == 4:
-                css = open(helpers.get_media_path('style_dark_old.css'), 'r')
+                css = open(helpers.get_media_path('style_dark_old.css'), 'rb')
             else:
-                css = open(helpers.get_media_path('style_dark.css'), 'r')
+                css = open(helpers.get_media_path('style_dark.css'), 'rb')
             css_data = css.read()
             css.close()
             self.style_provider.load_from_data(css_data)
@@ -718,7 +718,7 @@ class UberwriterWindow(Window):
 
         else: 
             # Dark mode off
-            css = open(helpers.get_media_path('style.css'), 'r')
+            css = open(helpers.get_media_path('style.css'), 'rb')
             css_data = css.read()
             css.close()
 
