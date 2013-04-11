@@ -500,6 +500,7 @@ class UberwriterWindow(Window):
             return 
 
         text = self.get_text()
+        text = text.encode("utf-8")
                 
         output_dir = os.path.abspath(os.path.join(filename, os.path.pardir))
         

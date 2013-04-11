@@ -9,3 +9,6 @@ Initial build was with the help of Wolf Vollprecht (UberWriter creator).
 Instructions:
 - python3 bin/uberwriter
  
+Requirements (SEVERELY INCOMPLETE):
+- via apt-get:
+	`sudo apt-get install python3-gi python3-gi-cairo pandoc`
